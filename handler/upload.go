@@ -354,17 +354,17 @@ func DownloadURLHandler(c *gin.Context) {
 	row, _ := dblayer.GetFileMeta(filehash)
 
 	// TODO: 判断文件存在OSS，还是Ceph，还是在本地
-	if strings.HasPrefix(row.FileAddr.String, cfg.TempLocalRootDir) ||
-		strings.HasPrefix(row.FileAddr.String, cfg.CephRootDir) {
+	if strings.HasPrefix(row.FileAddr, cfg.TempLocalRootDir) ||
+		strings.HasPrefix(row.FileAddr, cfg.CephRootDir) {
 		username := c.Request.FormValue("username")
 		token := c.Request.FormValue("token")
 		tmpURL := fmt.Sprintf("http://%s/file/download?filehash=%s&username=%s&token=%s",
 			c.Request.Host, filehash, username, token)
 		c.Data(http.StatusOK, "octet-stream", []byte(tmpURL))
-	} else if strings.HasPrefix(row.FileAddr.String, "oss/") {
+	} else if strings.HasPrefix(row.FileAddr, "oss/") {
 		// oss下载url
-		signedURL := oss.DownloadURL(row.FileAddr.String)
-		fmt.Println(row.FileAddr.String)
+		signedURL := oss.DownloadURL(row.FileAddr)
+		fmt.Println(row.FileAddr)
 		c.Data(http.StatusOK, "octet-stream", []byte(signedURL))
 	}
 }

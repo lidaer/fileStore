@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"filestore-server/common"
+	"fileStore/common"
 	"fmt"
 
 	"github.com/gin-gonic/gin"
@@ -10,8 +10,8 @@ import (
 	"net/http"
 	"time"
 
-	dblayer "filestore-server/db"
-	"filestore-server/util"
+	dblayer "fileStore/db"
+	"fileStore/util"
 )
 
 const (
@@ -19,7 +19,7 @@ const (
 	pwdSalt = "*#890"
 )
 
-// SignupHandler : 响应注册页面
+// SignupHandler : 处理get请求，响应注册页面
 func SignupHandler(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/static/view/signup.html")
 }
@@ -55,7 +55,7 @@ func DoSignupHandler(c *gin.Context) {
 	}
 }
 
-// SignInHandler : 响应登录页面
+// SignInHandler : 处理get请求，响应登录页面
 func SignInHandler(c *gin.Context) {
 	c.Redirect(http.StatusFound, "/static/view/signin.html")
 }

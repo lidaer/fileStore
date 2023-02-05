@@ -1,7 +1,7 @@
 package meta
 
 import (
-	mydb "filestore-server/db"
+	mydb "fileStore/db"
 	"sort"
 )
 
@@ -44,9 +44,9 @@ func GetFileMetaDB(fileSha1 string) (*FileMeta, error) {
 	}
 	fmeta := FileMeta{
 		FileSha1: tfile.FileHash,
-		FileName: tfile.FileName.String,
-		FileSize: tfile.FileSize.Int64,
-		Location: tfile.FileAddr.String,
+		FileName: tfile.FileName,
+		FileSize: tfile.FileSize,
+		Location: tfile.FileAddr,
 	}
 	return &fmeta, nil
 }
@@ -73,9 +73,9 @@ func GetLastFileMetasDB(limit int) ([]FileMeta, error) {
 	for i := 0; i < len(tfilesm); i++ {
 		tfilesm[i] = FileMeta{
 			FileSha1: tfiles[i].FileHash,
-			FileName: tfiles[i].FileName.String,
-			FileSize: tfiles[i].FileSize.Int64,
-			Location: tfiles[i].FileAddr.String,
+			FileName: tfiles[i].FileName,
+			FileSize: tfiles[i].FileSize,
+			Location: tfiles[i].FileAddr,
 		}
 	}
 	return tfilesm, nil
